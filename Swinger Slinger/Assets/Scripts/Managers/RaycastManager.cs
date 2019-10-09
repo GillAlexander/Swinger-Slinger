@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RaycastManager : MonoBehaviour
+public class RaycastManager : Singelton<RaycastManager>
 {
     public Camera playerCamera;
     void Update()
