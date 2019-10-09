@@ -7,7 +7,7 @@ public class RaycastManager : Singelton<RaycastManager>
     public Camera playerCamera;
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             RaycastHit hit;
             Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
@@ -16,7 +16,7 @@ public class RaycastManager : Singelton<RaycastManager>
 
             if (Physics.Raycast(ray, out hit))
             {
-                hit.transform.gameObject.GetComponent<Rigidbody>().velocity += new Vector3(0,3,0);
+                Vector2.Distance(hit.transform.gameObject.transform.position, ); 
                 Debug.Log(hit.transform.gameObject);
             }
         }
