@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+public class InputManager : Singelton<InputManager>
 {
     private Rigidbody playerRb;
     private void Start()
     {
-        playerRb = GetComponent<Rigidbody>();
+        playerRb = Player.GetInstance().GetComponent<Rigidbody>();
     }
     
     private void Update()
@@ -28,7 +28,6 @@ public class InputManager : MonoBehaviour
         {
             playerRb.velocity = new Vector3(0, 0, -2);
         }
-
 
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
         {

@@ -5,19 +5,35 @@ using UnityEngine;
 public class RaycastManager : Singelton<RaycastManager>
 {
     public Camera playerCamera;
+    private RaycastHit raycastHit;
+    private Ray rayCastRay;
+    public GameObject player;
+    private LayerMask rayMask;
+    public GameObject raycastTest;
+    private GameObject clone;
+    private List<GameObject> objectList = new List<GameObject>();
+    private void Start()
+    {
+        rayMask = LayerMask.GetMask("raycastLayer");
+    }
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButton(1))
         {
-            RaycastHit hit;
-            Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-
-            Debug.DrawRay(transform.position, Vector3.forward, Color.blue, 2);
-
-            if (Physics.Raycast(ray, out hit))
+            rayCastRay = playerCamera.ScreenPointToRay(Input.mousePosition);
+            
+            if (Physics.Raycast(rayCastRay, out raycastHit, Mathf.Infinity, rayMask))
             {
-                Vector2.Distance(hit.transform.gameObject.transform.position, ); 
-                Debug.Log(hit.transform.gameObject);
+                Debug.Log(raycastHit.transform.gameObject.name);
+                objectList.Add(clone = Instantiate(raycastTest, raycastHit.point, Quaternion.identity));
+                var distance = Vector3.Distance(raycastHit.transform.position, player.transform.position);
+                Debug.Log(distance);
+                if (distance < 2)
+                {
+                    Debug.Log($"Player is within bound of {raycastHit.transform.gameObject} object");
+                    //Väja det objekt du har träffat med din raycast. Se till att objektet hamlar i en lista och 
+                    //gör sen så att du kan snurra runt spelaren
+                }
             }
         }
     }
